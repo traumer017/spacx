@@ -3,8 +3,9 @@ package com.example.spacx;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "OpenNotify", url = "http://open-notify.org/Open-Notify-API/People-In-Space/")
-public interface SpaceClient {
+@FeignClient(name = "peopleInSpaceClient", url = "http://api.open-notify.org")
+public interface PeopleInSpaceClient {
+
     @GetMapping("/astros.json")
-    String getPeopleInSpace();
+    PeopleInSpaceResponse getPeopleInSpace();
 }

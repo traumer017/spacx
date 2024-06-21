@@ -6,21 +6,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-public class SpaceService {
-    @Autowired
-    private SpaceClient spaceClient;
+public class PeopleInSpaceService {
 
     @Autowired
-    private WebClient webClient;
+    private WebClient.Builder webClientBuilder;
 
-    public String getPeopleInSpaceUsingFeign() {
-        return spaceClient.getPeopleInSpace();
-    }
-
-    public Mono<String> getPeopleInSpaceUsingWebClient() {
-        return webClient.get()
+    public Mono<PeopleInSpaceResponse> getPeopleInSpace() {
+        return webClientBuilder.build()
+                .get()
                 .uri("http://api.open-notify.org/astros.json")
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(PeopleInSpaceResponse.class);
     }
 }
